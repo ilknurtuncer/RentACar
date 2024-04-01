@@ -45,6 +45,11 @@ module.exports = {
             }
         */
 
+        // "Admin/staf değilse" veya "UserId göndermişmemişse" req.user'dan al:
+        if ((!req.user.isAdmin && !req.user.isStaff) || !req.body?.userId) {
+            req.body.userId = req.user._id
+        }
+
         // createdId ve updatedId verisini req.user'dan al:
         req.body.createdId = req.user._id
         req.body.updatedId = req.user._id
@@ -82,6 +87,11 @@ module.exports = {
                 }
             }
         */
+
+        // Admin değilse rezervasyona ait userId değiştirilemez:
+        if (!req.user.isAdmin) {
+            delete req.body.userId
+        }
 
         // updatedId verisini req.user'dan al:
         req.body.updatedId = req.user._id
