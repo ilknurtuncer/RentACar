@@ -45,6 +45,10 @@ module.exports = {
             }
         */
 
+        // createdId ve updatedId verisini req.user'dan al:
+        req.body.createdId = req.user._id
+        req.body.updatedId = req.user._id
+
         const data = await Reservation.create(req.body)
 
         res.status(201).send({
@@ -78,6 +82,9 @@ module.exports = {
                 }
             }
         */
+
+        // updatedId verisini req.user'dan al:
+        req.body.updatedId = req.user._id
 
         res.status(202).send({
             error: false,
